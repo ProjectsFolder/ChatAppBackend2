@@ -25,7 +25,8 @@ class UserController extends AbstractController
         $chat = $em->getRepository(Chat::class)->findOneBy(['secret' => $key]);
         if ($chat) {
             $username = $request->get('name', '');
-            $login_is_used = $em->getRepository(User::class)->findOneBy(['name' => $username]) != null;
+            $login_is_used = $em->getRepository(User::class)
+                    ->findOneBy(['name' => $username, 'chat' => $chat]) != null;
 
             if ($login_is_used) {
                 return new JsonResponse(['name' => 'Username is used'], Response::HTTP_BAD_REQUEST);

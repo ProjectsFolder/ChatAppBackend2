@@ -36,6 +36,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         $route = $request->attributes->get('_route');
         $supports = 'chat.create' !== $route
             && 'user.login' !== $route
+            && 'chat.exists' !== $route
             && isset($request->attributes->get('_route_params')['key'])
             && $request->headers->has('X-AUTH-TOKEN');
         return $supports;
